@@ -14,4 +14,17 @@ repositories {
 dependencies {
     gradleApi()
     localGroovy()
+
+    // slf4j is required by many classes in this library
+    implementation libs.slf4j.api
+    testImplementation libs.slf4j.simple
+
+    // JUnit Jupiter is used by all unit tests of all subprojects
+    testImplementation libs.junit.jupiter
+    testImplementation libs.junit.jupiter.api
+    testRuntimeOnly libs.junit.jupiter.engine
+}
+
+test {
+    useJUnitPlatform()
 }

@@ -1,4 +1,4 @@
-package com.kazurayam
+package com.kazurayam.gradle.hello
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project

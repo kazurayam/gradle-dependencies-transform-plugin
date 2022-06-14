@@ -1,4 +1,4 @@
-package com.kazurayam.gradle
+package com.kazurayam.gradle.subprojectdistribution
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -14,7 +14,7 @@ class SubprojectDistribution implements Plugin<Project> {
     }
 
     /* resolves `archiveBaseName` of Zip task for a sub-project */
-    String ancestorProjectsName(Project rootProject, Project proj, str = '') {
+    String ancestorProjectsName(Project rootProject, Project proj, String str = '') {
         String s = str;
         if (proj.name == rootProject.name) {
             s = rootProject.name
