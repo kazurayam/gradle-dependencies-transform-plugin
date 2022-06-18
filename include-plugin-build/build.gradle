@@ -1,0 +1,18 @@
+/*
+plugins {
+    id 'com.kazurayam.subproject-distribution'
+}
+ */
+buildscript {
+    repositories {
+        mavenLocal()
+    }
+    dependencies {
+        classpath 'com.kazurayam:subproject-distribution:0.1.0-SNAPSHOT'
+    }
+}
+apply plugin: 'com.kazurayam.hello'
+
+hello {
+    message = 'world'
+}

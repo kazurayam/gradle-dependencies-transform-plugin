@@ -1,6 +1,6 @@
-# Gradle Plugin: Self-Contained Subproject Distribution
+# A Gradle Plugin: Self-Contained Subproject Distribution
 
-The original code was 
+The original code was
 
 - https://qiita.com/rhirabay/items/265f382e74a7fb6829c9
 

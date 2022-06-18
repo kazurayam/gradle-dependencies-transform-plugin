@@ -1,0 +1,71 @@
+plugins {
+    id 'groovy'
+    id 'java-gradle-plugin'
+    id 'maven-publish'
+}
+
+group 'com.kazurayam'
+version '0.1.0-SNAPSHOT'
+
+ext {
+    isReleaseVersion = !version.endsWith("SNAPSHOT")
+}
+// I do not want to sign the SNAPSHOT
+tasks.withType(Sign) {
+    onlyIf { isReleaseVersion }
+}
+
+repositories {
+    mavenCentral()
+}
+
+def integrationTest = sourceSets.create("integrationTest")
+def integrationTestTask = tasks.register("integrationTest", Test) {
+    description = "Runs the integration tests."
+    testClassesDirs = integrationTest.output.classesDirs
+    classpath = integrationTest.runtimeClasspath
+    mustRunAfter(tasks.named('test'))
+}
+
+def functionalTest = sourceSets.create("functionalTest")
+def functionalTestTask = tasks.register("functionalTest", Test) {
+    description = "Runs the functional tests."
+    group = "hello"
+    testClassesDirs = functionalTest.output.classesDirs
+    classpath = functionalTest.runtimeClasspath
+    mustRunAfter(tasks.named('test'))
+}
+
+
+dependencies {
+    gradleApi()
+    localGroovy()
+
+    testImplementation platform(libs.spock.bom)
+    testImplementation libs.spock.core
+
+    integrationTestImplementation sourceSets.main.output
+
+    integrationTestImplementation platform(libs.spock.bom)
+    integrationTestImplementation libs.spock.core
+
+    functionalTestImplementation platform(libs.spock.bom)
+    functionalTestImplementation libs.spock.core
+
+    // slf4j is required by many classes in this library
+    implementation libs.slf4j.api
+    testImplementation libs.slf4j.simple
+
+    // JUnit Jupiter is used by all unit tests of all subprojects
+    testImplementation libs.junit.jupiter
+    testImplementation libs.junit.jupiter.api
+    testRuntimeOnly libs.junit.jupiter.engine
+}
+
+tasks.withType(Test).configureEach {
+    useJUnitPlatform()
+}
+
+gradlePlugin {
+    testSourceSets(sourceSets.functionalTest)
+}

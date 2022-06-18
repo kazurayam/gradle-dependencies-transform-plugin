@@ -1,5 +1,0 @@
-= Gradle Plugin: subproject-distribution
-
-
-
-https://www.baeldung.com/gradle-create-plugin
